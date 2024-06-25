@@ -1,0 +1,77 @@
+﻿.myInlineDecoration {
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+.mdbChapterHeading {
+    font-size: x-large;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.mdbSectionHeading {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.mdbPeekHeading {
+    font-weight: bold;
+}
+
+/* Don't use `vertical-align: super;` as it affects other things on the same line*/
+.mdbVerseNumber{
+    font-size: xx-small;
+    position: relative;
+    top: -0.5em;
+}
+
+.mdbTrinity {
+    font-weight: 600;
+    color: darkgoldenrod !important;
+}
+
+.mdbPerson {
+    font-weight: 600;
+    color: darkred !important;
+}
+
+.mdbPlace {
+    font-weight: 600;
+    color: darkslateblue !important;
+}
+
+.mdbPeople {
+    font-weight: 600;
+    color: darkslategray !important;
+}
+
+.mdbDiscretionary {
+    color: #999999 !important;
+}
+
+.mdbAlternate {
+    color: darkblue !important;
+}
+
+
+/*
+        "editorInfo.foreground": "#0000ff !Important",
+
+*/
+
+editorInfo.foreground {
+    color: blue !important;
+}
+
+
+
+/* Hide the list at the right of the inline view */
+.monaco-editor .reference-zone-widget .ref-tree {
+    background-color: blueviolet;
+    width: 0;
+    visibility: hidden;
+}
+
+
