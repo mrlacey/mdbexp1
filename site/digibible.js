@@ -249,7 +249,7 @@ monaco.editor.onDidCreateEditor(newEditor => {
 
         // ADD DECORATIONS
 
-        if (newEditor.getModel().uri == markModel.uri) {
+        if (e.newModelUrl == markModel.uri) {
             var decorations = newEditor.createDecorationsCollection([
 
                 { range: new monaco.Range(2, 1, 2, 32), options: { inlineClassName: "mdbChapterHeading" } },
@@ -433,6 +433,8 @@ monaco.editor.onDidCreateEditor(newEditor => {
 });
 
 
+var currFontSize = 16;
+
 
 const myEditor = monaco.editor.create(document.getElementById("container"), {
     language: 'mdbible',
@@ -440,6 +442,7 @@ const myEditor = monaco.editor.create(document.getElementById("container"), {
     automaticLayout: true,
     readOnly: true,
     codeLens: true,
+    fontSize: currFontSize,
     showFoldingControls: "never",
     definitionLinkOpensInPeek: true,
     occurrencesHighlight: "off",
@@ -555,6 +558,21 @@ function SetTheme(useDarkMode) {
     } else {
         myEditor.updateOptions({ theme: "vs" });
     }
+}
+
+
+// Method called when the HTML button is clicked
+function BiggerText() {
+    //myEditor.updateOptions({ fontSize: myEditor.options.fontSize + 2 });
+    //alert(myEditor.EditorOptions)
+    currFontSize += 2;
+    myEditor.updateOptions({ fontSize: currFontSize });
+}
+
+// Method called when the HTML button is clicked
+function SmallerText() {
+    currFontSize -= 2;
+    myEditor.updateOptions({ fontSize: currFontSize });
 }
 
 

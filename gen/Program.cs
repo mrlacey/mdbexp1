@@ -146,7 +146,7 @@ namespace DataTransformer
 				{
 					var decorationOutput = new StringBuilder();
 
-					decorationOutput.AppendLine($"if (newEditor.getModel().uri == {book}Model.uri) {{");
+					decorationOutput.AppendLine($"if (e.newModelUrl == {book}Model.uri) {{");
 					decorationOutput.AppendLine("  var decorations = newEditor.createDecorationsCollection([");
 					decorationOutput.AppendLine();
 
