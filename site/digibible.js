@@ -70,6 +70,10 @@ The Work in Galilee
 42Instantly the leprosy left the man, and he became clean;
 43and then Jesus, after sternly warning him, immediately sent him away,
 44and said to him, “Be careful not to say anything to anyone; but go and show yourself to the priest, and make the offerings for your cleansing directed by Moses, as evidence of your cure.”
+
+
+
+
 `;
 
 var markModel = monaco.editor.createModel(markContent, "mdbible", monaco.Uri.parse("mark"));
