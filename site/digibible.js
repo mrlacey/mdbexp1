@@ -195,11 +195,14 @@ var isaiahModel = monaco.editor.createModel(isaiahContent, "mdbible", monaco.Uri
 
 const markers = [];
 
-markers.push({ message: "good news", severity: monaco.MarkerSeverity.Hint, startLineNumber: 8, startColumn: 23, endLineNumber: 8, endColumn: 32 });
-markers.push({ message: "Some manuscripts do not have 'the Son of God'", severity: monaco.MarkerSeverity.Hint, startLineNumber: 8, startColumn: 52, endLineNumber: 8, endColumn: 69 });
-markers.push({ message: "with", severity: monaco.MarkerSeverity.Hint, startLineNumber: 23, startColumn: 22, endLineNumber: 23, endColumn: 26 });
-markers.push({ message: "with", severity: monaco.MarkerSeverity.Hint, startLineNumber: 23, startColumn: 58, endLineNumber: 23, endColumn: 62 });
-markers.push({ message: "tempted", severity: monaco.MarkerSeverity.Hint, startLineNumber: 30, startColumn: 50, endLineNumber: 30, endColumn: 57 });
+markers.push({ message: "good news", severity: monaco.MarkerSeverity.Hint, startLineNumber: 8, startColumn: 23, endLineNumber: 8, endColumn: 32});
+markers.push({ message: "Some manuscripts do not have 'the Son of God'", severity: monaco.MarkerSeverity.Hint, startLineNumber: 8, startColumn: 52, endLineNumber: 8, endColumn: 69});
+markers.push({ message: "with", severity: monaco.MarkerSeverity.Hint, startLineNumber: 23, startColumn: 22, endLineNumber: 23, endColumn: 26});
+markers.push({ message: "with", severity: monaco.MarkerSeverity.Hint, startLineNumber: 23, startColumn: 58, endLineNumber: 23, endColumn: 62});
+markers.push({ message: "tempted", severity: monaco.MarkerSeverity.Hint, startLineNumber: 30, startColumn: 50, endLineNumber: 30, endColumn: 57});
+markers.push({ message: "leper", severity: monaco.MarkerSeverity.Hint, startLineNumber: 66, startColumn: 13, endLineNumber: 66, endColumn: 18});
+markers.push({ message: "Moved with compassion", severity: monaco.MarkerSeverity.Hint, startLineNumber: 67, startColumn: 3, endLineNumber: 67, endColumn: 24});
+markers.push({ message: "leprosy", severity: monaco.MarkerSeverity.Hint, startLineNumber: 68, startColumn: 17, endLineNumber: 68, endColumn: 24});
 
 monaco.editor.setModelMarkers(markModel, "owner", markers);
 
@@ -216,12 +219,15 @@ monaco.languages.registerHoverProvider("mdbible", {
 
             // ADD HOVERS
 
-        if (model.uri == markModel.uri) {
-            if (position.lineNumber == 8 && position.column >= 23 && position.column <= 32) { return { range: new monaco.Range(8, 23, 8, 32), contents: [{ value: "or **gospel**" },], }; };
-            if (position.lineNumber == 23 && position.column >= 22 && position.column <= 26) { return { range: new monaco.Range(23, 22, 23, 26), contents: [{ value: "or **in**" },], }; };
-            if (position.lineNumber == 23 && position.column >= 58 && position.column <= 62) { return { range: new monaco.Range(23, 58, 23, 62), contents: [{ value: "or **in**" },], }; };
-            if (position.lineNumber == 30 && position.column >= 50 && position.column <= 57) { return { range: new monaco.Range(30, 50, 30, 57), contents: [{ value: "or **tested**" },], }; };
-        }
+            if (model.uri == markModel.uri) {
+                if (position.lineNumber == 8 && position.column >= 23 && position.column <= 32) { return { range: new monaco.Range(8, 23, 8, 32), contents: [ { value: "or **gospel**" }, ], };};
+                if (position.lineNumber == 23 && position.column >= 22 && position.column <= 26) { return { range: new monaco.Range(23, 22, 23, 26), contents: [ { value: "or **in**" }, ], };};
+                if (position.lineNumber == 23 && position.column >= 58 && position.column <= 62) { return { range: new monaco.Range(23, 58, 23, 62), contents: [ { value: "or **in**" }, ], };};
+                if (position.lineNumber == 30 && position.column >= 50 && position.column <= 57) { return { range: new monaco.Range(30, 50, 30, 57), contents: [ { value: "or **tested**" }, ], };};
+                if (position.lineNumber == 66 && position.column >= 13 && position.column <= 18) { return { range: new monaco.Range(66, 13, 66, 18), contents: [ { value: "a person with an unspecified skin diseases" }, ], };};
+                if (position.lineNumber == 67 && position.column >= 3 && position.column <= 24) { return { range: new monaco.Range(67, 3, 67, 24), contents: [ { value: "or **With indignance**" }, ], };};
+                if (position.lineNumber == 68 && position.column >= 17 && position.column <= 24) { return { range: new monaco.Range(68, 17, 68, 24), contents: [ { value: "The word translated _leprosy_ was used for many skin diseases" }, ], };};
+            }
 
 
         return undefined;
@@ -251,120 +257,123 @@ monaco.editor.onDidCreateEditor(newEditor => {
 
         if (e.newModelUrl == markModel.uri) {
             var decorations = newEditor.createDecorationsCollection([
-
-                { range: new monaco.Range(2, 1, 2, 32), options: { inlineClassName: "mdbChapterHeading" } },
-                { range: new monaco.Range(4, 1, 4, 10), options: { inlineClassName: "mdbChapterHeading" } },
-                { range: new monaco.Range(6, 1, 6, 16), options: { inlineClassName: "mdbSectionHeading" } },
-                { range: new monaco.Range(8, 1, 8, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(8, 39, 8, 44), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(8, 23, 8, 32), options: { inlineClassName: "mdbAlternate" } },
-                { range: new monaco.Range(8, 52, 8, 69), options: { inlineClassName: "mdbDiscretionary" } },
-                { range: new monaco.Range(10, 1, 10, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(10, 28, 10, 34), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(14, 5, 14, 6), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(15, 33, 15, 37), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(18, 1, 18, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(18, 2, 18, 19), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(19, 1, 19, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(19, 15, 19, 20), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(19, 56, 19, 65), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(21, 1, 21, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(21, 2, 21, 6), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(22, 1, 22, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(23, 1, 23, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(23, 22, 23, 26), options: { inlineClassName: "mdbAlternate" } },
-                { range: new monaco.Range(23, 58, 23, 62), options: { inlineClassName: "mdbAlternate" } },
-                { range: new monaco.Range(23, 67, 23, 78), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(25, 1, 25, 2), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(25, 22, 25, 27), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(25, 79, 25, 83), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(25, 38, 25, 46), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(25, 50, 25, 57), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(25, 91, 25, 97), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(26, 1, 26, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(26, 84, 26, 90), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(27, 1, 27, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(29, 1, 29, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(29, 29, 29, 35), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(29, 42, 29, 47), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(30, 1, 30, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(30, 50, 30, 57), options: { inlineClassName: "mdbAlternate" } },
-                { range: new monaco.Range(30, 61, 30, 66), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(30, 105, 30, 111), options: { inlineClassName: "mdbPeople" } },
-                { range: new monaco.Range(32, 1, 32, 20), options: { inlineClassName: "mdbSectionHeading" } },
-                { range: new monaco.Range(34, 1, 34, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(34, 33, 34, 38), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(34, 47, 34, 54), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(34, 9, 34, 13), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(34, 85, 34, 88), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(35, 1, 35, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(35, 42, 35, 45), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(37, 1, 37, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(37, 6, 37, 11), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(37, 68, 37, 73), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(37, 90, 37, 96), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(37, 45, 37, 59), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(38, 1, 38, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(38, 25, 38, 30), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(39, 1, 39, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(41, 1, 41, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(41, 37, 41, 42), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(41, 44, 41, 51), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(41, 75, 41, 79), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(42, 1, 42, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(42, 3, 42, 8), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(42, 57, 42, 64), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(44, 1, 44, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(44, 49, 44, 54), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(44, 18, 44, 27), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(45, 1, 45, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(46, 1, 46, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(47, 1, 47, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(47, 30, 47, 35), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(48, 1, 48, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(48, 7, 48, 12), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(49, 1, 49, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(50, 1, 50, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(51, 1, 51, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(51, 74, 51, 81), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(53, 1, 53, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(53, 69, 53, 74), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(53, 79, 53, 85), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(53, 98, 53, 103), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(53, 108, 53, 112), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(54, 1, 54, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(54, 79, 54, 84), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(54, 7, 54, 28), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(55, 1, 55, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(55, 3, 55, 8), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(57, 1, 57, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(57, 55, 57, 60), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(57, 102, 57, 104), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(58, 1, 58, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(58, 3, 58, 8), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(60, 1, 60, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(60, 41, 60, 46), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(61, 1, 61, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(61, 7, 61, 12), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(62, 1, 62, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(63, 1, 63, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(63, 7, 63, 12), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(64, 1, 64, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(64, 77, 64, 84), options: { inlineClassName: "mdbPlace" } },
-                { range: new monaco.Range(66, 1, 66, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(66, 27, 66, 32), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(67, 1, 67, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(67, 26, 67, 31), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(68, 1, 68, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(69, 1, 69, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(69, 12, 69, 17), options: { inlineClassName: "mdbTrinity" } },
-                { range: new monaco.Range(70, 1, 70, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(70, 157, 70, 162), options: { inlineClassName: "mdbPerson" } },
-                { range: new monaco.Range(71, 1, 71, 3), options: { inlineClassName: "mdbVerseNumber" } },
-                { range: new monaco.Range(71, 110, 71, 115), options: { inlineClassName: "mdbTrinity" } },
-
+          
+              { range: new monaco.Range(2, 1, 2, 32), options: { inlineClassName: "mdbChapterHeading" }},
+              { range: new monaco.Range(4, 1, 4, 10), options: { inlineClassName: "mdbChapterHeading" }},
+              { range: new monaco.Range(6, 1, 6, 16), options: { inlineClassName: "mdbSectionHeading" }},
+              { range: new monaco.Range(8, 1, 8, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(8, 39, 8, 44), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(8, 23, 8, 32), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(8, 52, 8, 69), options: { inlineClassName: "mdbDiscretionary" }},
+              { range: new monaco.Range(10, 1, 10, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(10, 28, 10, 34), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(14, 5, 14, 6), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(15, 33, 15, 37), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(18, 1, 18, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(18, 2, 18, 19), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(19, 1, 19, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(19, 15, 19, 20), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(19, 56, 19, 65), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(21, 1, 21, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(21, 2, 21, 6), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(22, 1, 22, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(23, 1, 23, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(23, 22, 23, 26), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(23, 58, 23, 62), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(23, 67, 23, 78), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(25, 1, 25, 2), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(25, 22, 25, 27), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(25, 79, 25, 83), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(25, 38, 25, 46), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(25, 50, 25, 57), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(25, 91, 25, 97), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(26, 1, 26, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(26, 84, 26, 90), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(27, 1, 27, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(29, 1, 29, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(29, 29, 29, 35), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(29, 42, 29, 47), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(30, 1, 30, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(30, 50, 30, 57), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(30, 61, 30, 66), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(30, 105, 30, 111), options: { inlineClassName: "mdbPeople" }},
+              { range: new monaco.Range(32, 1, 32, 20), options: { inlineClassName: "mdbSectionHeading" }},
+              { range: new monaco.Range(34, 1, 34, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(34, 33, 34, 38), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(34, 47, 34, 54), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(34, 9, 34, 13), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(34, 85, 34, 88), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(35, 1, 35, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(35, 42, 35, 45), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(37, 1, 37, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(37, 6, 37, 11), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(37, 68, 37, 73), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(37, 90, 37, 96), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(37, 45, 37, 59), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(38, 1, 38, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(38, 25, 38, 30), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(39, 1, 39, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(41, 1, 41, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(41, 37, 41, 42), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(41, 44, 41, 51), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(41, 75, 41, 79), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(42, 1, 42, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(42, 3, 42, 8), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(42, 57, 42, 64), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(44, 1, 44, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(44, 49, 44, 54), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(44, 18, 44, 27), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(45, 1, 45, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(46, 1, 46, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(47, 1, 47, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(47, 30, 47, 35), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(48, 1, 48, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(48, 7, 48, 12), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(49, 1, 49, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(50, 1, 50, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(51, 1, 51, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(51, 74, 51, 81), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(53, 1, 53, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(53, 69, 53, 74), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(53, 79, 53, 85), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(53, 98, 53, 103), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(53, 108, 53, 112), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(54, 1, 54, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(54, 79, 54, 84), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(54, 7, 54, 28), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(55, 1, 55, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(55, 3, 55, 8), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(57, 1, 57, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(57, 55, 57, 60), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(57, 102, 57, 104), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(58, 1, 58, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(58, 3, 58, 8), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(60, 1, 60, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(60, 41, 60, 46), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(61, 1, 61, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(61, 7, 61, 12), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(62, 1, 62, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(63, 1, 63, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(63, 7, 63, 12), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(64, 1, 64, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(64, 77, 64, 84), options: { inlineClassName: "mdbPlace" }},
+              { range: new monaco.Range(66, 1, 66, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(66, 27, 66, 32), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(66, 13, 66, 18), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(67, 1, 67, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(67, 26, 67, 31), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(67, 3, 67, 24), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(68, 1, 68, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(68, 17, 68, 24), options: { inlineClassName: "mdbAlternate" }},
+              { range: new monaco.Range(69, 1, 69, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(69, 12, 69, 17), options: { inlineClassName: "mdbTrinity" }},
+              { range: new monaco.Range(70, 1, 70, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(70, 157, 70, 162), options: { inlineClassName: "mdbPerson" }},
+              { range: new monaco.Range(71, 1, 71, 3), options: { inlineClassName: "mdbVerseNumber" }},
+              { range: new monaco.Range(71, 110, 71, 115), options: { inlineClassName: "mdbTrinity" }},
+          
             ]);
-        }
+          }
 
         if (newEditor.getModel().uri == malachiModel.uri) {
             var decorations = newEditor.createDecorationsCollection([

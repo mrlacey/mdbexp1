@@ -140,6 +140,11 @@ namespace DataTransformer
 				model.AppendLine();
 				model.AppendLine($"var {book}Model = monaco.editor.createModel({book}Content, \"mdbible\", monaco.Uri.parse(\"{book}\"));");
 
+				if (!Directory.Exists($"./{book}/"))
+				{
+					Directory.CreateDirectory($"./{book}/");
+				}
+
 				File.WriteAllText($"./{book}/model.js", model.ToString());
 
 				if (decorations.Any())
