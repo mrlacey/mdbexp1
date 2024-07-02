@@ -456,6 +456,7 @@ const myEditor = monaco.editor.create(document.getElementById("container"), {
     readOnly: true,
     codeLens: true,
     fontSize: currFontSize,
+    fontFamily: 'Consolas',
     showFoldingControls: "never",
     definitionLinkOpensInPeek: true,
     occurrencesHighlight: "off",
@@ -587,6 +588,14 @@ function SmallerText() {
     currFontSize -= 2;
     myEditor.updateOptions({ fontSize: currFontSize });
 }
+
+
+// Method called when the HTML SELECT selection is changed
+function SetFont(selectedFont) {
+   myEditor.updateOptions({ fontFamily: selectedFont.options[selectedFont.selectedIndex].value });
+}
+
+
 
 
 // This being displayed means that all the JS has loaded without issue.

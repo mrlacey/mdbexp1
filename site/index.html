@@ -24,6 +24,12 @@
         Dark <input type="checkbox" name="useDark" onchange="SetTheme(this)"/>
         <button type="button" onclick="BiggerText()">Bigger text</button>
         <button type="button" onclick="SmallerText()">smaller text</button>
+        <select name="font" onchange="SetFont(this)">
+            <option value="Consolas">Default</option>
+            <option value="Arial">Arial</option>
+            <option value="Garamond">Garamond</option>
+            <option value="Times New Roman">Times (serif)</option>
+        </select>
     </form>
 
     <div id="container"></div>
